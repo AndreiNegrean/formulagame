@@ -14,6 +14,7 @@ My best score is 6. Can you beat it?
 ![](https://github.com/AndreiNegrean/formulagame/blob/master/Car_Preview.jpg)
 
 ## Installation
+Install Pillow library.
 Clone this repository and run the FormulaG.py file in your interpreter.
 
 ## Coming soon
