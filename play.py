@@ -184,16 +184,21 @@ class Play(ttk.Frame):
             self.new_game_button.grid_forget()
             self.exit_button.grid_forget()
             self.indexes = random.sample(range(0, 20), 10)
+
             self.check_button['state'] = 'normal'
             self.next_button['state'] = 'disabled'
             self.check_button['state'] = 'disabled'
+
             self.score_label['text'] = 'Your score is:'
             self.score_value = tk.StringVar(value=0)
-            self.stage = tk.StringVar(value=1)
             self.score_display['textvariable'] = self.score_value
+
+            self.stage = tk.StringVar(value=1)
             self.stage_label['textvariable'] = self.stage
+
             self.check_label_text.set('')
             self.check_label['textvariable'] = self.check_label_text
+
             default_image()
             show_specs()
 
@@ -211,6 +216,7 @@ class Play(ttk.Frame):
 
         self.check_button['state'] = 'disabled'
         self.next_button['state'] = 'disabled'
+
         show_specs()
         default_image()
 
