@@ -4,14 +4,14 @@ import bs4
 import re
 import os.path
 from os import path
-import pathlib, os
+
 
 def get_drivers_icons():
 
     try:
         directory = 'drivers'
         parent_dir = pathlib.Path(__file__).parent.resolve()
-        path=os.path.join(parent_dir, directory)
+        path = os.path.join(parent_dir, directory)
         os.mkdir(path)
     except:
         pass
@@ -60,21 +60,25 @@ def get_drivers_icons():
         if len(icons_list) == 20:
             break
 
-    drivers_list = [(names_list[i], nationalities_list[i], numbers_list[i], teams_list[i], icons_list[i]) for i in
-                     range(0, 20)]
+    drivers_list = [(names_list[i],
+                     nationalities_list[i],
+                     numbers_list[i],
+                     teams_list[i],
+                     icons_list[i]) for i in range(0, 20)]
 
     path = pathlib.Path(__file__).parent.resolve()
 
     for name, nationality, number, team, icon in drivers_list:
-        if os.path.exists(f'{path}/drivers/{name}_image.jpg') == False:
+        if not os.path.exists(f'{path}/drivers/{name}_image.jpg'):
             f = open(f'{path}/drivers/{name}_image.jpg', 'wb')
             icon_link = requests.get(icon)
             f.write(icon_link.content)
-            f.close
+            f.close()
 
     return drivers_list
 
-class Driver():
+
+class Driver:
     def __init__(self, name, nationality, number, team, icon):
         self.name = name
         self.nationality = nationality
@@ -82,11 +86,18 @@ class Driver():
         self.team = team
         self.icon = icon
 
+
 drivers_list = get_drivers_icons()
+
 
 def init_drivers():
     drivers = []
     for i in range(0, 20):
-        driver = Driver(name=drivers_list[i][0], nationality=drivers_list[i][1], number=drivers_list[i][2], team=drivers_list[i][3], icon=drivers_list[i][4])
+        driver = Driver(name=drivers_list[i][0],
+                        nationality=drivers_list[i][1],
+                        number=drivers_list[i][2],
+                        team=drivers_list[i][3],
+                        icon=drivers_list[i][4])
         drivers.append(driver)
+
     return drivers

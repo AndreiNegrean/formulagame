@@ -10,6 +10,7 @@ try:
 except:
     pass
 
+
 class Formula(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,10 +22,10 @@ class Formula(tk.Tk):
         style.configure('Menu.TButton',
                         background='#212121',
                         foreground='white',
-                        font=('Helvetica',15, 'bold')
+                        font=('Helvetica', 15, 'bold')
                         )
         style.map('Menu.TButton',
-                  background=[('active','#af3a3a')])
+                  background=[('active', '#af3a3a')])
 
         style.configure('Specs_title.TLabel', font=('Helvetica', 13, 'bold'), background='white')
 
@@ -32,18 +33,18 @@ class Formula(tk.Tk):
 
         style.configure('Drivers_list.TLabel', font=('Helvetica', 9), background='white', foreground='black')
         style.map('Drivers_list.TLabel',
-                  background=[('active','#212121'),('selected','#212121'),('!active','white')],
-                  foreground=[('active','white'),('selected','white'),('!active','black')])
+                  background=[('active', '#212121'), ('selected', '#212121'), ('!active', 'white')],
+                  foreground=[('active', 'white'), ('selected', 'white'), ('!active', 'black')])
 
-        style.configure('Score.TLabel', font=('Helvetica', 9,'bold'), background='white')
+        style.configure('Score.TLabel', font=('Helvetica', 9, 'bold'), background='white')
 
         style.configure('Correct.TLabel', font=('Helvetica', 11), background='white', foreground='green')
         style.configure('Wrong.TLabel', font=('Helvetica', 11), background='white', foreground='red')
 
         style.configure('Play_button.TButton', font=('Helvetica', 11), background='#212121', foreground='white')
         style.map('Play_button.TButton',
-                  background=[('active','#af3a3a'),('disabled','light gray')],
-                  foreground=[('active','white'),('disabled','gray')])
+                  background=[('active', '#af3a3a'), ('disabled', 'light gray')],
+                  foreground=[('active', 'white'), ('disabled', 'gray')])
 
         self.title(' Guess the F1 Driver')
         self.geometry('1280x480')
@@ -52,9 +53,8 @@ class Formula(tk.Tk):
         self.rowconfigure(0, weight=1)
 
         path = pathlib.Path(__file__).parent.resolve()
-        icon_photo = tk.PhotoImage(file = f'{path}\windowimg.png')
+        icon_photo = tk.PhotoImage(file=f'{path}\windowimg.png')
         self.iconphoto(False, icon_photo)
-
 
         self.frames = {}
 
@@ -77,8 +77,6 @@ class Formula(tk.Tk):
         self.destroy()
         exit()
 
+
 root = Formula()
 root.mainloop()
-
-
-
