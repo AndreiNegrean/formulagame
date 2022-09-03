@@ -16,6 +16,7 @@ Just how it would look like, it's not implemented.
 
 ## Installation
 Install Pillow library.
+
 Clone this repository and run the FormulaG.py file in your interpreter.
 
 ## Bugs fixed
