@@ -27,7 +27,7 @@ Game executable file
 
 New game mods
 
-Weekly updates (NEW: Stage label, Highscore label)
+Weekly updates (NEW: Stage label, Highscore label - preview coming soon)
 
 ## Contact
 [Linkedin](https://www.linkedin.com/in/andrei-negrean/)
