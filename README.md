@@ -26,7 +26,7 @@ New game mods
 
 Reset button for highscore
 
-Weekly updates (NEW: Stage label, Highscore label - preview coming soon)
+Weekly updates (NEW: Stage label, Highscore label)
 
 ## Contact
 [Linkedin](https://www.linkedin.com/in/andrei-negrean/)
