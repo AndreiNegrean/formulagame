@@ -5,10 +5,11 @@ from PIL import Image, ImageTk
 import os
 from drivers import *
 import random
+import sqlite3
 
 class Play(ttk.Frame):
-    def __init__(self, container, **kwargs):
-        super().__init__(container, **kwargs)
+    def __init__(self, container):
+        super().__init__(container)
 
 
         self.columnconfigure(0, weight=1)
@@ -61,6 +62,29 @@ class Play(ttk.Frame):
             if self.guess.get() == self.number:
                 self.score_value.set(score+1)
 
+        self.highscore = tk.StringVar(value=0)
+        def highest_score():
+            high_score = int(self.highscore.get())
+            if high_score < int(self.score_value.get()):
+                self.highscore.set(high_score+1)
+                con = sqlite3.connect('scores.db')
+                cur = con.cursor()
+                cur.execute('''CREATE TABLE IF NOT EXISTS Scores (Score INT)''')
+                highest_score = (high_score + 1,)
+                cur.execute('INSERT INTO Scores VALUES (?)', highest_score)
+                con.commit()
+
+        def highest_score_update():
+            con = sqlite3.connect('scores.db')
+            cur = con.cursor()
+            value = (0,)
+            cur.execute('INSERT INTO Scores VALUES (?)', value)
+            cur.execute('SELECT MAX(Score) FROM Scores')
+            new_high_score = cur.fetchall()
+            result = new_high_score[0][0]
+            self.highscore.set(result)
+            con.commit()
+
         def check_if_gameover():
             if len(self.indexes) == 0:
 
@@ -78,7 +102,8 @@ class Play(ttk.Frame):
                 self.exit_button.grid(row=9, column=3, rowspan=2, sticky='NSEW', padx=30)
 
         def update_check_button():
-            self.check_button['state'] = 'normal'
+            if self.check_label_text.get() == '':
+                self.check_button['state'] = 'normal'
 
         def check_answear():
 
@@ -89,16 +114,19 @@ class Play(ttk.Frame):
                 self.image_label_about['image'] = None
                 driver_image_update()
                 score_update()
-                self.check_button['state'] = 'disabled'
+                highest_score()
                 self.next_button['state'] = 'normal'
+                self.check_button['state'] = 'disabled'
                 check_if_gameover()
             else:
                 self.check_label_text.set('Wrong')
                 self.check_label = ttk.Label(play_image_frame, textvariable=self.check_label_text, style='Wrong.TLabel')
                 self.check_label.grid(row=3, column=3, rowspan=2, sticky='NS')
                 score_update()
-                self.check_button['state'] = 'disabled'
+                highest_score()
                 self.next_button['state'] = 'normal'
+                self.next_button['state'] == 'normal'
+                self.check_button['state'] = 'disabled'
                 check_if_gameover()
 
         self.guess = tk.StringVar()
@@ -145,7 +173,10 @@ class Play(ttk.Frame):
             self.team_label = ttk.Label(play_image_frame, text=self.team, style='Specs.TLabel')
             self.team_label.grid(row=9, column=0, sticky='W', padx=30)
 
+            show_highscore()
+            highest_score_update()
             show_stage()
+
 
             return self.number
 
@@ -168,9 +199,16 @@ class Play(ttk.Frame):
 
             show_specs()
 
+        def show_highscore():
+            self.highscore_label_title = ttk.Label(play_image_frame, text='Highscore: ', style='Drivers_list.TLabel', width=21)
+            self.highscore_label_title.grid(row=10, column=0, rowspan=2)
+            self.highscore_label = ttk.Label(play_image_frame, textvariable=self.highscore, style='Drivers_list.TLabel')
+            self.highscore_label.grid(row=10, column=0, rowspan=2, sticky='NS')
+
+
         self.stage = tk.StringVar(value=1)
         def show_stage():
-            self.stage_label_title = ttk.Label(play_image_frame, text='Stage:', style='Drivers_list.TLabel', width=14)
+            self.stage_label_title = ttk.Label(play_image_frame, text='Stage:', style='Drivers_list.TLabel', width=13)
             self.stage_label_title.grid(row=0, column=0, rowspan=2)
             self.stage_label = ttk.Label(play_image_frame, textvariable=self.stage, style='Drivers_list.TLabel')
             self.stage_label.grid(row=0, column=0, rowspan=2, sticky='NS')

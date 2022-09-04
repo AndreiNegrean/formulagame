@@ -10,7 +10,6 @@ try:
 except:
     pass
 
-
 class Formula(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -77,6 +76,6 @@ class Formula(tk.Tk):
         self.destroy()
         exit()
 
-
-root = Formula()
-root.mainloop()
+if __name__ == '__main__':
+    root = Formula()
+    root.mainloop()
