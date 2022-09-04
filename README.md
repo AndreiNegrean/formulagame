@@ -24,6 +24,8 @@ Game executable file
 
 New game mods
 
+Reset button for highscore
+
 Weekly updates (NEW: Stage label, Highscore label - preview coming soon)
 
 ## Contact
