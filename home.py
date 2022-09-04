@@ -5,8 +5,8 @@ import pathlib, os
 
 
 class Home(ttk.Frame):
-    def __init__(self, container, show_play, exit_app, **kwargs, ):
-        super().__init__(container, **kwargs)
+    def __init__(self, container, show_play, exit_app):
+        super().__init__(container)
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
