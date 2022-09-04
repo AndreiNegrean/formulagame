@@ -5,7 +5,6 @@ My best score is 6. Can you beat it?
 ## Preview
 ![](https://github.com/AndreiNegrean/formulagame/blob/master/Game_Preview.gif)
 
-
 ![](https://github.com/AndreiNegrean/formulagame/blob/master/preview.jpg)
 
 ## Car Preview
