@@ -1,5 +1,5 @@
 # Guess the driver - Game
-Guess the Formula 1 driver by his nationality, number, team.
+Guess the Formula 1 driver by his nationality, number and team.
 My best score is 6. Can you beat it?
 
 ## Preview
