@@ -1,13 +1,11 @@
 import requests
-import pathlib, os
+import pathlib
+import os
 import bs4
 import re
-import os.path
-from os import path
 
 
 def get_drivers_icons():
-
     try:
         directory = 'drivers'
         parent_dir = pathlib.Path(__file__).parent.resolve()

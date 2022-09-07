@@ -7,10 +7,10 @@ from drivers import *
 import random
 import sqlite3
 
+
 class Play(ttk.Frame):
     def __init__(self, container):
         super().__init__(container)
-
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
@@ -22,13 +22,12 @@ class Play(ttk.Frame):
         play_image_frame.columnconfigure(3, minsize=100)
         play_image_frame.columnconfigure(4, minsize=400)
 
-        for i in range(0,12):
+        for i in range(0, 12):
             play_image_frame.rowconfigure(i, minsize=40)
-
 
         play_image_frame.grid(row=0, column=0, sticky='NSEW')
 
-        self.nationality_title_label = ttk.Label(play_image_frame, text = 'Nationality', style='Specs_title.TLabel')
+        self.nationality_title_label = ttk.Label(play_image_frame, text='Nationality', style='Specs_title.TLabel')
         self.nationality_title_label.grid(row=2, column=0, sticky='W', padx=30)
         self.number_title_label = ttk.Label(play_image_frame, text='Number', style='Specs_title.TLabel')
         self.number_title_label.grid(row=5, column=0, sticky='W', padx=30)
@@ -57,16 +56,18 @@ class Play(ttk.Frame):
             self.driver_image_label.grid(row=0, column=4, rowspan=12, sticky='NSW', pady=60)
 
         self.score_value = tk.StringVar(value=0)
+
         def score_update():
             score = int(self.score_value.get())
             if self.guess.get() == self.number:
-                self.score_value.set(score+1)
+                self.score_value.set(score + 1)
 
         self.highscore = tk.StringVar(value=0)
+
         def highest_score():
             high_score = int(self.highscore.get())
             if high_score < int(self.score_value.get()):
-                self.highscore.set(high_score+1)
+                self.highscore.set(high_score + 1)
                 con = sqlite3.connect('scores.db')
                 cur = con.cursor()
                 cur.execute('''CREATE TABLE IF NOT EXISTS Scores (Score INT)''')
@@ -87,7 +88,6 @@ class Play(ttk.Frame):
 
         def check_if_gameover():
             if len(self.indexes) == 0:
-
                 self.guess.set(None)
                 self.score_label['text'] = 'Game is over! Your score is:'
 
@@ -95,21 +95,24 @@ class Play(ttk.Frame):
                 self.next_button.grid_forget()
                 self.stage_label.grid_forget()
 
-                self.new_game_button = ttk.Button(play_image_frame, text='New Game', command=reset_game, width=15, style='Play_button.TButton')
+                self.new_game_button = ttk.Button(play_image_frame, text='New Game', command=reset_game, width=15,
+                                                  style='Play_button.TButton')
                 self.new_game_button.grid(row=5, column=3, rowspan=4, sticky='NSEW', padx=30)
 
-                self.exit_button = ttk.Button(play_image_frame, text='Exit', command=exit, width=15, style='Play_button.TButton')
+                self.exit_button = ttk.Button(play_image_frame, text='Exit', command=exit, width=15,
+                                              style='Play_button.TButton')
                 self.exit_button.grid(row=9, column=3, rowspan=2, sticky='NSEW', padx=30)
 
         def update_check_button():
             if self.check_label_text.get() == '':
                 self.check_button['state'] = 'normal'
 
-        def check_answear():
+        def check_answer():
 
             if self.guess.get() == self.number:
                 self.check_label_text.set('Correct')
-                self.check_label = ttk.Label(play_image_frame, textvariable=self.check_label_text, style='Correct.TLabel')
+                self.check_label = ttk.Label(play_image_frame, textvariable=self.check_label_text,
+                                             style='Correct.TLabel')
                 self.check_label.grid(row=3, column=3, rowspan=2, sticky='NS')
                 self.image_label_about['image'] = None
                 driver_image_update()
@@ -133,27 +136,25 @@ class Play(ttk.Frame):
         self.check_label_text = tk.StringVar()
         self.check_label_text.set('')
 
-        for i in range(0,10):
-
+        for i in range(0, 10):
             self.radio = ttk.Radiobutton(play_image_frame,
-                                    text=drivers_list[i].name,
-                                    value=drivers_list[i].number,
-                                    variable=self.guess,
-                                    command=update_check_button,
-                                    style='Drivers_list.TLabel'
-                                    )
-            self.radio.grid(row=i+1, column=1, sticky='NS', padx=10)
+                                         text=drivers_list[i].name,
+                                         value=drivers_list[i].number,
+                                         variable=self.guess,
+                                         command=update_check_button,
+                                         style='Drivers_list.TLabel'
+                                         )
+            self.radio.grid(row=i + 1, column=1, sticky='NS', padx=10)
 
-        for i in range(10,20):
-
+        for i in range(10, 20):
             self.radio_two = ttk.Radiobutton(play_image_frame,
-                                        text=drivers_list[i].name,
-                                        value=drivers_list[i].number,
-                                        variable=self.guess,
-                                        command=update_check_button,
-                                        style='Drivers_list.TLabel',
-                                        )
-            self.radio_two.grid(row=i+1-10, column=2, sticky='NS', padx=10)
+                                             text=drivers_list[i].name,
+                                             value=drivers_list[i].number,
+                                             variable=self.guess,
+                                             command=update_check_button,
+                                             style='Drivers_list.TLabel',
+                                             )
+            self.radio_two.grid(row=i + 1 - 10, column=2, sticky='NS', padx=10)
 
         self.indexes = random.sample(range(0, 20), 10)
 
@@ -166,7 +167,7 @@ class Play(ttk.Frame):
             self.team = drivers_list[i].team
             self.name = drivers_list[i].name
 
-            self.nationality_label = ttk.Label(play_image_frame, text = self.nationality, style='Specs.TLabel')
+            self.nationality_label = ttk.Label(play_image_frame, text=self.nationality, style='Specs.TLabel')
             self.nationality_label.grid(row=3, column=0, sticky='W', padx=30)
             self.number_label = ttk.Label(play_image_frame, text=self.number, style='Specs.TLabel')
             self.number_label.grid(row=6, column=0, sticky='W', padx=30)
@@ -176,7 +177,6 @@ class Play(ttk.Frame):
             show_highscore()
             highest_score_update()
             show_stage()
-
 
             return self.number
 
@@ -192,7 +192,7 @@ class Play(ttk.Frame):
             default_image()
             self.check_button['state'] = 'disabled'
             self.next_button['state'] = 'disabled'
-            self.guess.set(None)  #Deselect radiobuttons
+            self.guess.set(None)  # Deselect radiobuttons
             self.stage_label.grid_forget()
             stg = int(self.stage.get())
             self.stage.set(stg + 1)
@@ -200,13 +200,14 @@ class Play(ttk.Frame):
             show_specs()
 
         def show_highscore():
-            self.highscore_label_title = ttk.Label(play_image_frame, text='Highscore: ', style='Drivers_list.TLabel', width=21)
+            self.highscore_label_title = ttk.Label(play_image_frame, text='Highscore: ', style='Drivers_list.TLabel',
+                                                   width=21)
             self.highscore_label_title.grid(row=10, column=0, rowspan=2)
             self.highscore_label = ttk.Label(play_image_frame, textvariable=self.highscore, style='Drivers_list.TLabel')
             self.highscore_label.grid(row=10, column=0, rowspan=2, sticky='NS')
 
-
         self.stage = tk.StringVar(value=1)
+
         def show_stage():
             self.stage_label_title = ttk.Label(play_image_frame, text='Stage:', style='Drivers_list.TLabel', width=13)
             self.stage_label_title.grid(row=0, column=0, rowspan=2)
@@ -240,16 +241,17 @@ class Play(ttk.Frame):
             default_image()
             show_specs()
 
-
         self.score_label = ttk.Label(play_image_frame, text='Score is:', style='Score.TLabel')
         self.score_label.grid(row=1, column=3, sticky='NS')
         self.score_display = ttk.Label(play_image_frame, textvariable=self.score_value, style='Specs_title.TLabel')
         self.score_display.grid(row=2, column=3, stick='NS')
 
-        self.check_button = ttk.Button(play_image_frame, text='Check', command=check_answear, width=15, style='Play_button.TButton')
+        self.check_button = ttk.Button(play_image_frame, text='Check', command=check_answer, width=15,
+                                       style='Play_button.TButton')
         self.check_button.grid(row=5, column=3, rowspan=4, sticky='NSEW', padx=30)
 
-        self.next_button = ttk.Button(play_image_frame, text='Next', command=update_specs, width=15, style='Play_button.TButton')
+        self.next_button = ttk.Button(play_image_frame, text='Next', command=update_specs, width=15,
+                                      style='Play_button.TButton')
         self.next_button.grid(row=9, column=3, rowspan=2, sticky='NSEW', padx=30)
 
         self.check_button['state'] = 'disabled'
@@ -257,5 +259,3 @@ class Play(ttk.Frame):
 
         show_specs()
         default_image()
-
-
