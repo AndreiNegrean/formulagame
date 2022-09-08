@@ -24,7 +24,9 @@ Game executable file
 
 New game mods
 
-Reset button for highscore
+Reset button for highscore ✔️
+
+![](https://github.com/AndreiNegrean/formulagame/blob/dev/reset_button_preview.JPG)
 
 Weekly updates (NEW: Stage label, Highscore label)
 
