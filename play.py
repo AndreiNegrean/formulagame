@@ -128,7 +128,6 @@ class Play(ttk.Frame):
                 score_update()
                 highest_score()
                 self.next_button['state'] = 'normal'
-                self.next_button['state'] == 'normal'
                 self.check_button['state'] = 'disabled'
                 check_if_gameover()
 
@@ -174,7 +173,6 @@ class Play(ttk.Frame):
             self.team_label = ttk.Label(play_image_frame, text=self.team, style='Specs.TLabel')
             self.team_label.grid(row=9, column=0, sticky='W', padx=30)
 
-            show_highscore()
             highest_score_update()
             show_stage()
 
@@ -198,13 +196,6 @@ class Play(ttk.Frame):
             self.stage.set(stg + 1)
 
             show_specs()
-
-        def show_highscore():
-            self.highscore_label_title = ttk.Label(play_image_frame, text='Highscore: ', style='Drivers_list.TLabel',
-                                                   width=21)
-            self.highscore_label_title.grid(row=10, column=0, rowspan=2)
-            self.highscore_label = ttk.Label(play_image_frame, textvariable=self.highscore, style='Drivers_list.TLabel')
-            self.highscore_label.grid(row=10, column=0, rowspan=2, sticky='NS')
 
         self.stage = tk.StringVar(value=1)
 
@@ -240,6 +231,22 @@ class Play(ttk.Frame):
 
             default_image()
             show_specs()
+
+        def reset_highscore():
+            con = sqlite3.connect('scores.db')
+            cur = con.cursor()
+            cur.execute('DELETE FROM Scores')
+            con.commit()
+            self.highscore.set(0)
+
+        self.highscore_label_title = ttk.Label(play_image_frame, text='Highscore: ', style='Drivers_list.TLabel',
+                                               width=21)
+        self.highscore_label_title.grid(row=10, column=0, rowspan=2)
+        self.highscore_label = ttk.Label(play_image_frame, textvariable=self.highscore, style='Drivers_list.TLabel')
+        self.highscore_label.grid(row=10, column=0, rowspan=2, sticky='NS')
+
+        self.reset_highscore_button = ttk.Button(play_image_frame, text='Reset', style='Reset_button.TButton', command=reset_highscore, width=5)
+        self.reset_highscore_button.grid(row=10, column=0, rowspan=2, columnspan=2, sticky='W', padx=140)
 
         self.score_label = ttk.Label(play_image_frame, text='Score is:', style='Score.TLabel')
         self.score_label.grid(row=1, column=3, sticky='NS')

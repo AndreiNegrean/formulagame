@@ -45,6 +45,11 @@ class Formula(tk.Tk):
                   background=[('active', '#af3a3a'), ('disabled', 'light gray')],
                   foreground=[('active', 'white'), ('disabled', 'gray')])
 
+        style.configure('Reset_button.TButton', font=('Helvetica', 9), background='#212121', foreground='white')
+        style.map('Reset_button.TButton',
+                  background=[('active', '#af3a3a')],
+                  foreground=[('active', 'white')])
+
         self.title(' Guess the F1 Driver')
         self.geometry('1280x480')
         self.resizable(False, False)
